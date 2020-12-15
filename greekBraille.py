@@ -12,7 +12,11 @@ class text:
             try:  # TODO: EVERYTHING
                 self.greekBraille.append(self.lexicon[letter])
             except:
-                self.greekBraille.append(letter)
+                if (letter.isupper()):
+                    self.greekBraille.append(
+                        self.lexicon["CAPITAL"]+self.lexicon[chr(ord(letter)+37)])
+                else:
+                    self.greekBraille.append(letter)
         self.greekBraille = "".join(self.greekBraille)
         self.greekAlpha = "".join(self.greekAlpha)
 
