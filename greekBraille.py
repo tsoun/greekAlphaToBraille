@@ -1,3 +1,7 @@
+capitalAccent = {'Ά': 'Α', 'Έ': 'Ε', 'Ό': 'Ο', 'Ύ': 'Υ', 'Ί': 'Ι', 'Ή': 'Η'}
+lowerAccent = {'ά': 'α', 'έ': 'ε', 'ό': 'ο', 'ύ': 'υ', 'ί': 'ι', 'ή': 'η'}
+
+
 class text:
     def __init__(self, lexicon):
         self.greekAlpha = []
@@ -12,14 +16,22 @@ class text:
             try:  # TODO: EVERYTHING
                 self.greekBraille.append(self.lexicon[letter])
             except:
-                if (letter.isupper()):
-                    try:
-                        self.greekBraille.append(
-                            self.lexicon["CAPITAL"]+self.lexicon[chr(ord(letter)+37)])
-                    except:
-                        pass
+                if letter in capitalAccent:
+                    self.greekBraille.append(
+                        self.lexicon["CAPITAL"]+self.lexicon[capitalAccent[letter].lower()]+self.lexicon['΄'])
                 else:
-                    self.greekBraille.append(letter)
+                    if letter in lowerAccent:
+                        self.greekBraille.append(
+                            self.lexicon['΄']+self.lexicon[lowerAccent[letter]])
+                    else:
+                        if letter.isupper():
+                            try:
+                                self.greekBraille.append(
+                                    self.lexicon["CAPITAL"]+self.lexicon[letter.lower()])
+                            except:
+                                pass
+                        else:
+                            self.greekBraille.append(letter)
         self.greekBraille = "".join(self.greekBraille)
         self.greekAlpha = "".join(self.greekAlpha)
 
